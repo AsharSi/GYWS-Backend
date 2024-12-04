@@ -13,7 +13,7 @@ const membersSchema = new _Schema({
   linkedinLink: { type: String, default: "" },
   state: { type: String, default: "" },
   city: { type: String, default: "" },
-  dateOfBirth: { type: Date },
+  dateOfBirth: { type: Date,default: "" },
   rollNo: { type: String, default: "" },
   teams: [
     {
