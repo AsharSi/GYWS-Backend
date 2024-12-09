@@ -3,6 +3,7 @@ import  { addMember, editMember, getMember, deleteMember, getAllMembers,getMembe
 import { register, login } from "../Controller/AdminPanel/AuthControllers.js"
 import { ensureAuthenticated, ensureAdmin } from "../Middlewares/AdminPanel/Authorization.js";
 import {upload, uploadImage} from "../Middlewares/AdminPanel/Cloudinary.js";
+import {addRequest,getAllRequests,approveRequest,denyRequest} from "../Controller/AdminPanel/RequestControllers.js";
 
 const router = express.Router();
 
@@ -21,6 +22,10 @@ router.put("/member/:_id",upload.single('image'),uploadImage, editMember);
 router.post("/addMember",upload.single('image'),uploadImage,addMember);
 router.delete("/member/:_id", deleteMember);
 
+router.post("/addRequest",upload.single('image'),uploadImage,addRequest);
+router.route("/requests").get(getAllRequests);
+router.post("/approveRequest/:_id",approveRequest);
+router.delete("/denyRequest/:_id",denyRequest);
 
 router.use(ensureAuthenticated);
 router.use(ensureAdmin);

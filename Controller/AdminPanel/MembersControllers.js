@@ -210,13 +210,6 @@ async function getMemberByPosOrYear(req, res) {
   }
 }
 
-
-
-
-
-
-
-
 const searchMember = async (req, res, next) => {
   try {
     const { searchString } = req.params; // Get the search string from request parameters
@@ -255,12 +248,6 @@ const searchMember = async (req, res, next) => {
     res.status(500).json({ message: "An error occurred during the search.", error: err.message });
   }
 };
-
-
-
-
-
-
 
 export {
   addMember,
