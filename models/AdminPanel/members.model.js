@@ -13,18 +13,13 @@ const membersSchema = new Schema({
   city: { type: String, default: "" },
   dateOfBirth: { type: Date, default: "" },
   rollNo: { type: String, default: "" },
-  // team: { type: [Schema.Types.ObjectId], ref: 'Team' } 
-});
-
-// Team Schema
-const teamSchema = new Schema({
   position: { type: String, required: true },
   year: { type: String, required: true },
-  team: { type: String, required: true },
-  members: { type: [Schema.Types.ObjectId], ref: 'Member' } 
+  teams:[{
+    position: { type: String, required: true },
+    team: { type: String, required: true }, 
+    year: { type: Number, required: true }
+  }]
 });
-
-const Team = models.Team || model("Team", teamSchema);
-const Member = models.Member || model("Member", membersSchema);
-
-export { Team, Member };
+//Export the mode
+export const Member = models.Members || model('Members', membersSchema);

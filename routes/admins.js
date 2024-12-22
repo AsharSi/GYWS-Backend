@@ -1,5 +1,6 @@
 import express from "express";
-import  { addMember} from "../Controller/AdminPanel/MemberController.js/addMember.js";
+import {addMember} from "../Controller/AdminPanel/MemberController/addMember.js";
+// import {editMember} from "../Controller/AdminPanel/MemberController/editMember.js";
 import { register, login } from "../Controller/AdminPanel/AuthControllers.js"
 import { ensureAuthenticated, ensureAdmin } from "../Middlewares/AdminPanel/Authorization.js";
 import {upload, uploadImage} from "../Middlewares/AdminPanel/Cloudinary.js";
@@ -18,8 +19,8 @@ router.post("/login", login);
 // router.route("/memberSearch/:searchString").get(searchMember);
 
 // router.put("/addMemberData/:_id",upload.single('image'),uploadImage,addMemberData);
-// router.put("/member/:_id",upload.single('image'),uploadImage, editMember);
-router.post("/addMember",upload.single('image'),uploadImage,addMember);
+// router.put("/edit/member/:memberId",upload.single('image'),uploadImage, editMember);
+router.post("/add/member",upload.single('image'),uploadImage,addMember);
 // router.delete("/member/:_id", deleteMember);
 
 // router.post("/addRequest",upload.single('image'),uploadImage,addRequest);
