@@ -15,7 +15,7 @@ router.post("/register", register);
 router.post("/login", login);
 
 
-// router.route("/member").get(getMember);
+router.route("/get/member/:_id").get(getMemberById);
 // router.route("/members").get(getAllMembers);
 // router.route("/memberspy").get(getMemberByPosOrYear);
 // router.route("/memberSearch/:searchString").get(searchMember);
