@@ -15,8 +15,6 @@ const editMember = async (req, res) => {
       city = "",
       dateOfBirth,
       rollNo,
-      position,
-      year,
       teams = [], // Array of objects { position, team, year }
     } = req.body;
 
@@ -43,8 +41,6 @@ const editMember = async (req, res) => {
     existingMember.city = city || existingMember.city;
     existingMember.dateOfBirth = dateOfBirth || existingMember.dateOfBirth;
     existingMember.rollNo = rollNo || existingMember.rollNo;
-    existingMember.position = position || existingMember.position;
-    existingMember.year = year || existingMember.year;
     existingMember.teams = teams.length > 0 ? teams : existingMember.teams;
 
     // Save updated member

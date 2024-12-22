@@ -13,8 +13,6 @@ const membersSchema = new Schema({
   city: { type: String, default: "" },
   dateOfBirth: { type: Date, default: "" },
   rollNo: { type: String, default: "" },
-  position: { type: String, required: true },
-  year: { type: String, required: true },
   teams:[{
     position: { type: String, required: true },
     team: { type: String, required: true }, 

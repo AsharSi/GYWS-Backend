@@ -24,8 +24,6 @@ const addMember = async (req, res) => {
       city = "",
       dateOfBirth,
       rollNo,
-      position,
-      year,
       teams = [], // Array of objects { position, team, year }
     } = value;
 
@@ -59,8 +57,6 @@ const addMember = async (req, res) => {
       city,
       dateOfBirth,
       rollNo,
-      position,
-      year,
       teams, // Add the team details
     });
 

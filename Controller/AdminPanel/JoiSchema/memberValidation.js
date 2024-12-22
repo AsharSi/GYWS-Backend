@@ -12,8 +12,6 @@ const memberValidationSchema = Joi.object({
     city: Joi.string().allow('').optional(),
     dateOfBirth: Joi.date().allow('').optional(),
     rollNo: Joi.string().allow('').optional(),
-    position: Joi.string().required(),
-    year: Joi.string().required(),
     teams: Joi.array()
         .items(
             Joi.object({
