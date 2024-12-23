@@ -31,7 +31,7 @@ const deleteMember = async (req, res) => {
       success: true,
     });
   } catch (err) {
-    // Handle unexpected errors
+    console.log(err);
     res.status(500).json({
       message: `Internal server error: ${err.message}`,
       success: false,
