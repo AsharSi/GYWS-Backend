@@ -6,10 +6,13 @@ const approveRequest = async (req, res) => {
     const request = await Request.findById(req.params._id);
     if (!request) {
       return res.status(404).json({
-        message: `Request not found`,
-        success: false,
+      message: `Request not found`,
+      success: false,
       });
     }
+
+    // Remove the request from the database
+    await Request.findByIdAndDelete(req.params._id);
     const {
       firstName,
       lastName,
