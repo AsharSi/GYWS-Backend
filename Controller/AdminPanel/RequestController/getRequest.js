@@ -3,7 +3,7 @@ import { Request } from "../../../models/AdminPanel/requests.model.js";
 const getAllRequests = async (req, res) => {
     try{
         const requests = await Request.find();
-        if(!requests){
+        if(requests.length === 0){
             return res.status(404).json({
                 message: "Requests not found",
                 success: false,

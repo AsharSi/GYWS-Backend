@@ -45,7 +45,7 @@ const getMemberByYearPosTeam = async (req, res) => {
 
     const members = await Member.find(query);
 
-    if (!members) {
+    if (members.length === 0) {
       return res.status(404).json({
         message: "Member not found",
         success: false,
@@ -68,7 +68,7 @@ const getMemberByYearPosTeam = async (req, res) => {
 const getAllMembers = async (req, res) => {
   try {
     const members = await Member.find();
-    if (!members) {
+    if (members.length === 0) {
       return res.status(404).json({
         message: "Members not found",
         success: false,
