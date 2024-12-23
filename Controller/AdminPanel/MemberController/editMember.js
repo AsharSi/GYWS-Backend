@@ -53,7 +53,7 @@ const editMember = async (req, res) => {
       success: true,
     });
   } catch (err) {
-    // Handle any errors during the process
+    console.log(err);
     res.status(500).json({
       message: "Failed to update member. Error: " + err.message,
       success: false,

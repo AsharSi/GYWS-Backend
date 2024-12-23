@@ -25,6 +25,7 @@ const getMemberById = async (req, res) => {
       member,
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: `Internal server error: ${err.message}`,
       success: false,
@@ -42,9 +43,9 @@ const getMemberByYearPosTeam = async (req, res) => {
       query["teams.position"] = { $regex: new RegExp(position, "i") };
     if (team) query["teams.team"] = { $regex: new RegExp(team, "i") };
 
-    const member = await Member.findOne(query);
+    const members = await Member.find(query);
 
-    if (!member) {
+    if (!members) {
       return res.status(404).json({
         message: "Member not found",
         success: false,
@@ -54,9 +55,32 @@ const getMemberByYearPosTeam = async (req, res) => {
     return res.status(200).json({
       message: "Member found",
       success: true,
-      member,
+      members,
     });
   } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: `Internal server error: ${error.message}`,
+      success: false,
+    });
+  }
+};
+const getAllMembers = async (req, res) => {
+  try {
+    const members = await Member.find();
+    if (!members) {
+      return res.status(404).json({
+        message: "Members not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      message: "Members found",
+      success: true,
+      members,
+    });
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: `Internal server error: ${error.message}`,
       success: false,
@@ -64,4 +88,4 @@ const getMemberByYearPosTeam = async (req, res) => {
   }
 };
 
-export { getMemberById, getMemberByYearPosTeam };
+export { getMemberById, getMemberByYearPosTeam,getAllMembers};

@@ -1,7 +1,7 @@
-import { Member } from "../../../models/AdminPanel/members.model.js";
+import { Request } from "../../../models/AdminPanel/requests.model.js";
 import memberValidationSchema from "../JoiSchema/memberValidation.js";
 
-const addMember = async (req, res) => {
+const addRequest = async (req, res) => {
   try {
     // Validate request body
     const { error, value } = memberValidationSchema.validate(req.body);
@@ -27,8 +27,8 @@ const addMember = async (req, res) => {
       teams = [], // Array of objects { position, team, year }
     } = value;
 
-    // Check if the member already exists based on name, emails, and rollNo
-    const existingMember = await Member.findOne({
+    // Check if the request already exists based on name, emails, and rollNo
+    const existingRequest = await Request.findOne({
       $or: [
         { emails: { $in: emails } }, // Match any email in the list
         { rollNo },                 // Match roll number
@@ -37,15 +37,15 @@ const addMember = async (req, res) => {
       lastName,
     });
 
-    if (existingMember) {
+    if (existingRequest) {
       return res.status(400).json({
-        message: "Member already exists",
+        message: "Request to add request already exists",
         success: false,
       });
     }
 
-    // Create a new member instance
-    const newMember = new Member({
+    // Create a new request instance
+    const newRequest = new Request({
       firstName,
       lastName,
       emails,
@@ -60,22 +60,22 @@ const addMember = async (req, res) => {
       teams, // Add the team details
     });
 
-    // Save the member to the database
-    const savedMember = await newMember.save();
+    // Save the request to the database
+    const savedRequest = await newRequest.save();
 
-    // Respond with success and the saved member data
+    // Respond with success and the saved request data
     res.status(201).json({
-      message: "Member added successfully",
-      member: savedMember,
+      message: "request added successfully",
+      request: savedRequest,
       success: true,
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Failed to add member. Error: " + err.message,
+      message: "Failed to add request. Error: " + err.message,
       success: false,
     });
   }
 };
 
-export { addMember };
+export { addRequest };

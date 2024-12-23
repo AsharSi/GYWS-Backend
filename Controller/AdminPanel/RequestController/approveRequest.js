@@ -1,17 +1,15 @@
+import { Request } from "../../../models/AdminPanel/requests.model.js";
 import { Member } from "../../../models/AdminPanel/members.model.js";
-import memberValidationSchema from "../JoiSchema/memberValidation.js";
 
-const addMember = async (req, res) => {
+const approveRequest = async (req, res) => {
   try {
-    // Validate request body
-    const { error, value } = memberValidationSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        message: "Validation failed. Error: " + error.details[0].message,
+    const request = await Request.findById(req.params._id);
+    if (!request) {
+      return res.status(404).json({
+        message: `Request not found`,
         success: false,
       });
     }
-
     const {
       firstName,
       lastName,
@@ -25,13 +23,12 @@ const addMember = async (req, res) => {
       dateOfBirth,
       rollNo,
       teams = [], // Array of objects { position, team, year }
-    } = value;
-
+    } = request;
     // Check if the member already exists based on name, emails, and rollNo
     const existingMember = await Member.findOne({
       $or: [
         { emails: { $in: emails } }, // Match any email in the list
-        { rollNo },                 // Match roll number
+        { rollNo }, // Match roll number
       ],
       firstName,
       lastName,
@@ -57,7 +54,7 @@ const addMember = async (req, res) => {
       city,
       dateOfBirth,
       rollNo,
-      teams, // Add the team details
+      teams, 
     });
 
     // Save the member to the database
@@ -72,10 +69,9 @@ const addMember = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Failed to add member. Error: " + err.message,
+      message: `Internal server error${err.message}`,
       success: false,
     });
   }
 };
-
-export { addMember };
+export { approveRequest };
