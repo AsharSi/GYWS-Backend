@@ -8,9 +8,10 @@ import { register, login } from "../Controller/AdminPanel/AuthControllers.js"
 import { ensureAuthenticated, ensureAdmin } from "../Middlewares/AdminPanel/Authorization.js";
 import {upload, uploadImage} from "../Middlewares/AdminPanel/Cloudinary.js";
 import { addRequest } from "../Controller/AdminPanel/RequestController/addRequest.js";
-import { getAllRequests } from "../Controller/AdminPanel/RequestController/getRequest.js";
+import { getAllRequests, getMyRequests } from "../Controller/AdminPanel/RequestController/getRequest.js";
 import { denyRequest } from "../Controller/AdminPanel/RequestController/denyRequest.js";
 import { approveRequest } from "../Controller/AdminPanel/RequestController/approveRequest.js";
+import { addComment } from "../Controller/AdminPanel/RequestController/addComment.js";
 
 
 const router = express.Router();
@@ -30,13 +31,14 @@ router.post("/add/member",upload.single('image'),uploadImage,addMember);
 router.delete("/delete/member/:_id", deleteMember);
 
 router.post("/add/request",upload.single('image'),uploadImage,addRequest);
+router.post("/get/my/requests",getMyRequests);
 router.get("/get/requests",getAllRequests);
 router.post("/approve/request/:_id",approveRequest);
 router.delete("/deny/request/:_id",denyRequest);
+router.post("/add/comment" , addComment);
 
 router.use(ensureAuthenticated);
 router.use(ensureAdmin);
-
 
 export default router;
 

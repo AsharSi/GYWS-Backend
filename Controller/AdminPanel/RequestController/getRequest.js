@@ -23,4 +23,31 @@ const getAllRequests = async (req, res) => {
         });
     }
 }
-export {getAllRequests};
+
+const getMyRequests = async (req, res) => {
+    try{
+        console.log(req.body);
+        const requests = await Request.find({rollNo : req.body.rollNo});
+        if(requests.length === 0){
+            return res.status(404).json({
+                message: "Requests not found",
+                success: false,
+            });
+        }
+        return res.status(200).json({
+            message: "Requests found",
+            success: true,
+            requests,
+        });
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+            message: `Internal server error${err.message}`,
+            success: false,
+        });
+    }
+}
+
+
+export {getAllRequests, getMyRequests};

@@ -17,7 +17,11 @@ const requestSchema = new Schema({
     position: { type: String, required: true },
     team: { type: String, required: true }, 
     year: { type: Number, required: true }
-  }]
+  }],
+  comments: [{
+    name: { type: String, required: true },
+    comment: { type: String, required: true }
+  }],
 });
 //Export the model
 export const Request = models.Requests || model('Requests', requestSchema);
