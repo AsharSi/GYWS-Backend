@@ -1,5 +1,6 @@
 import { Request } from "../../../models/AdminPanel/requests.model.js";
 import { Member } from "../../../models/AdminPanel/members.model.js";
+import { sendMailForApprove } from "../../sendMail.js";
 
 const approveRequest = async (req, res) => {
   try {
@@ -12,7 +13,13 @@ const approveRequest = async (req, res) => {
     }
 
     // Remove the request from the database
-    await Request.findByIdAndDelete(req.params._id);
+    // await Request.findByIdAndDelete(req.params._id);
+
+    // Send an email to the user that their request has been approved and change status to approved
+    sendMailForApprove(request.emails[0], "Admin");
+    request.status  = "Approved";
+    await request.save();
+    
     const {
       firstName,
       lastName,

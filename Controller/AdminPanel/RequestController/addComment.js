@@ -1,5 +1,5 @@
 import { Request } from "../../../models/AdminPanel/requests.model.js";
-import { sendMail } from "../../sendMail.js";
+import { sendMailForComment } from "../../sendMail.js";
 
 const addComment = async (req, res) => {
     try {
@@ -12,8 +12,9 @@ const addComment = async (req, res) => {
             });
         }
         request.comments.push({name, comment});
+        request.status = "Commented";
         await request.save();
-        sendMail(request.emails[0] , name , comment);
+        sendMailForComment(request.emails[0] , name , comment);
         return res.status(200).json({
             message: "Comment added successfully",
             success: true,

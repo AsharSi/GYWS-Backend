@@ -13,6 +13,7 @@ const requestSchema = new Schema({
   city: { type: String, default: "" },
   dateOfBirth: { type: Date, default: "" },
   rollNo: { type: String, default: "" },
+  status:  { type: String , default: "Pending" },
   teams:[{
     position: { type: String, required: true },
     team: { type: String, required: true }, 
