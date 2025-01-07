@@ -35,7 +35,7 @@ const getAllRequests = async (req, res) => {
 const getMyRequests = async (req, res) => {
     try{
         console.log(req.body);
-        const requests = await Request.find({rollNo : req.body.rollNo});
+        const requests = await Request.find({appliedBy : req.body.email});
         if(requests.length === 0){
             return res.status(404).json({
                 message: "Requests not found",

@@ -4,6 +4,7 @@ const memberValidationSchema = Joi.object({
     firstName: Joi.string().required(),
     lastName: Joi.string().allow('').optional(),
     emails: Joi.array().items(Joi.string().email()).min(1).required(),
+    appliedBy: Joi.string().required(),
     imageUrls: Joi.array().items(Joi.string().uri()).allow('').optional(),
     phoneNumbers: Joi.array().items(Joi.string()).allow('').optional(),
     facebookLink: Joi.string().uri().allow('').optional(),

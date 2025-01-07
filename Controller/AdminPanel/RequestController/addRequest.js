@@ -24,22 +24,17 @@ const addRequest = async (req, res) => {
       city = "",
       dateOfBirth,
       rollNo,
+      appliedBy,
       teams = [], // Array of objects { position, team, year }
     } = value;
 
-    // Check if the request already exists based on name, emails, and rollNo
-    const existingRequest = await Request.findOne({
-      $or: [
-        { emails: { $in: emails } }, // Match any email in the list
-        { rollNo },                 // Match roll number
-      ],
-      firstName,
-      lastName,
-    });
+    // Check if the request already exists based on appliedBy email that have status except  "Denied"
+    const existingRequest = await Request.findOne({appliedBy: appliedBy, status: {$ne: "Denied"}});
+
 
     if (existingRequest) {
       return res.status(400).json({
-        message: "Request to add request already exists",
+        message: "You have already applied for the team",
         success: false,
       });
     }
@@ -57,6 +52,7 @@ const addRequest = async (req, res) => {
       city,
       dateOfBirth,
       rollNo,
+      appliedBy,
       teams, // Add the team details
     });
 
