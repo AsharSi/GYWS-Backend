@@ -9,10 +9,18 @@ const getAllRequests = async (req, res) => {
                 success: false,
             });
         }
+        // filter the requests based on the status
+        const filteredRequests = requests.filter(request => request.status === "Pending" || request.status === "Commented");
+        if(filteredRequests.length === 0){
+            return res.status(404).json({
+                message: "Requests not found",
+                success: false,
+            });
+        }
         return res.status(200).json({
             message: "Requests found",
             success: true,
-            requests,
+            filteredRequests,
         });
 
     }catch(err){

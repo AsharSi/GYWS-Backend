@@ -16,7 +16,9 @@ const denyRequest = async (req, res) => {
                 success: false,
             });
         }
-        await Request.findByIdAndDelete(_id);
+        // await Request.findByIdAndDelete(_id);
+        request.status = "Declined";
+        await request.save();
         return res.status(200).json({
             message: "Request denied",
             success: true,
