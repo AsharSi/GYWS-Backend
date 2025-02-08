@@ -12,6 +12,7 @@ import { getAllRequests, getMyRequests } from "../Controller/AdminPanel/RequestC
 import { denyRequest } from "../Controller/AdminPanel/RequestController/denyRequest.js";
 import { approveRequest } from "../Controller/AdminPanel/RequestController/approveRequest.js";
 import { addComment } from "../Controller/AdminPanel/RequestController/addComment.js";
+import { updateRequest } from "../Controller/AdminPanel/RequestController/updateRequest.js";
 
 
 const router = express.Router();
@@ -36,6 +37,7 @@ router.get("/get/requests",getAllRequests);
 router.post("/approve/request/:_id",approveRequest);
 router.delete("/deny/request/:_id",denyRequest);
 router.post("/add/comment" , addComment);
+router.post("/update/request", updateRequest)
 
 router.use(ensureAuthenticated);
 router.use(ensureAdmin);
