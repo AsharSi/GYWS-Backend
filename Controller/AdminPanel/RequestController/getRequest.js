@@ -34,7 +34,16 @@ const getAllRequests = async (req, res) => {
 
 const getMyRequests = async (req, res) => {
     try{
+        
         console.log(req.body);
+        // if the email is not provided
+        if(!req.body.email){
+            return res.status(400).json({
+                message: "Email is required",
+                success: false,
+            });
+        }
+
         const requests = await Request.find({appliedBy : req.body.email});
         if(requests.length === 0){
             return res.status(404).json({
